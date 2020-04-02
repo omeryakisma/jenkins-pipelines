@@ -37,7 +37,7 @@ node {
    } 
   stage("Restart Web Server"){ 
     sh """
-    ssh centos@dev1.yakisma.com    sudo systemctl restart httpd 
+    ssh centos@${ENV}    sudo systemctl restart httpd 
     """
    }
   stage("Send Notifications to Slack"){ 
