@@ -1,5 +1,4 @@
 node { 
-  properties([pipelineTriggers([cron('* * * * *')])]) 
   stage("Stage1"){ 
     echo "hello" 
   } 
