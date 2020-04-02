@@ -3,7 +3,7 @@ node {
   properties([
     buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')), 
     pipelineTriggers([pollSCM('* * * * *')]),
-		parameters([
+    parameters([
       choice(
         choices: [
 	  'dev1.yakisma.com', 
