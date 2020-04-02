@@ -9,13 +9,13 @@ node {
   } 
   stage("Install Prerequisites"){
 		sh """
-		ssh centos@jenkins_worker1.acirrustech.com              sudo yum install httpd -y
+		ssh centos@jenkins_worker1.yakisma.com              sudo yum install httpd -y
 		"""
   }
 
   stage("Copy Artifacts"){ 
     sh """
-    scp -r *  centos@jenkins_worker1.acirrustech.com:/tmp
+    scp -r *  centos@jenkins_worker1.yakisma.com:/tmp
 		ssh centos@jenkins_worker1.yakisma.com              sudo cp -r /tmp/index.html /var/www/html/
 		ssh centos@jenkins_worker1.yakisma.com              sudo cp -r /tmp/style.css /var/www/html/
 		ssh centos@jenkins_worker1.yakisma.com				      sudo chown centos:centos /var/www/html/
