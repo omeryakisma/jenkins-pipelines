@@ -1,4 +1,5 @@
 node { 
+  properties([pipelineTriggers([cron('* * * * *')])]) 
   stage("Stage1"){ 
     echo "hello" 
   } 
@@ -13,5 +14,8 @@ node {
    } 
   stage("Stage5"){ 
     echo "hello" 
+  } 
+  stage("Send Notifications to Slack"){ 
+    slackSend color: '#BADA55', message: 'Hello, World!' 
   } 
 } 
