@@ -17,8 +17,8 @@ node {
     ])
   ])
   stage("Stage1"){ 
-    git 'https://github.com/farrukh90/cool_website.git'
-  } 
+    checkout([$class: 'GitSCM', branches: [[name: '*/FarrukH']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/farrukh90/cool_website.git']]])
+  }
   stage("Install Prerequisites"){
   sh """
   ssh centos@${ENV}                 sudo yum install httpd -y
@@ -42,8 +42,5 @@ node {
    }
   stage("Send Notifications to Slack"){ 
     slackSend color: '#BADA55', message: 'Hello, World!' 
-  } 
-  stage("Send Email to Support"){ 
-    mail bcc: '', body: 'Running', cc: 'support@company.com', from: '', replyTo: '', subject: 'Test', to: 'yakisma.omer@gmail.com' 
-  } 
+  }  
 } 
