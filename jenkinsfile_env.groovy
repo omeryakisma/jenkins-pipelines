@@ -53,11 +53,15 @@ node {
     """
    } 
   stage("Restart Web Server"){ 
-    sh """
-    ssh centos@${ENV}    sudo systemctl restart httpd 
-    """
-   }
+    ws ("tmp/"){
+      sh """
+        ssh centos@${ENV}    sudo systemctl restart httpd 
+      """
+    }
+  }
   stage("Send Notifications to Slack"){ 
-    slackSend color: '#BADA55', message: 'Hello, World!' 
+    ws("mnt/"){
+      mail bcc: '', body: 'Running', cc: 'support@company.com', from: '', replyTo: '', subject: 'Test', to: 'yakisma.omer@gmail.com' 
+    }
   }  
 }
