@@ -24,6 +24,12 @@ node {
         ],  
         description: 'Which version should we deploy?',  
         name: 'Version'
+      ),
+      string(
+        defaultValue: 'dev',  
+        description: 'Which environment should I build the app?',  
+        name: 'Environment', 
+        trim: true
       )
     ])
   ])
