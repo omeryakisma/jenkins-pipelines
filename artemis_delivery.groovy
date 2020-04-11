@@ -54,7 +54,7 @@ node {
 		timestamps {
 			ws {
 				sh '''
-					docker build --tag artemis:${Version} .
+					docker build tag artemis:${Version} .
 				'''
 			}
 		}
