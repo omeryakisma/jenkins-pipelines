@@ -54,7 +54,7 @@ node {
 		timestamps {
 			ws {
 				sh '''
-					docker build -t artemis/Dockerfile:${Version} .
+					docker build -t artemis/dockerfile:${Version} .
 				'''
 			}
 		}
