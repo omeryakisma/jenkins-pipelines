@@ -29,7 +29,7 @@ node {
             )
         ])
     ]) 
-    stage("Pull  [${ENVIR}, ${Version}]"){ 
+    stage("Pull ${Version} For ${ENVIR}"){ 
        timestamps { 
            ws { 
                checkout([$class: 'GitSCM', branches: [[name: '${Version}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/farrukh90/artemis.git']]]) 
@@ -60,7 +60,7 @@ node {
         timestamps { 
             ws { 
                 sh ''' 
-                    ssh centos@${ENVIR} nohup python /tmp/artemis.py &
+                    ssh centos@${ENVIR} nohup python /tmp/artemis.py 
                 ''' 
             } 
         } 
