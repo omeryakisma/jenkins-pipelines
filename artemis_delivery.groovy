@@ -49,7 +49,7 @@ node {
 		timestamps {                 // echo 1 > /proc/sys/vm/drop_caches
 			ws {
 				sh '''   
-					docker build -t artemis .
+					docker build -t artemis:${Version} .
 				'''
 			}
 		}
