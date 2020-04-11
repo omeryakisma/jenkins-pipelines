@@ -34,10 +34,10 @@ node {
             )
         ])
     ])
-	stage("Pull ${Version}"){
+	stage("Pull '${Version}'"){
 		timestamps {
 			ws {
-				checkout([$class: 'GitSCM', branches: [[name: '${Version}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/fuchicorp/artemis.git']]]) 
+				checkout([$class: 'GitSCM', branches: [[name: '${Version}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/farrukh90/artemis.git']]]) 
             }
 		}
 	}
@@ -50,11 +50,11 @@ node {
 			}
 		}
 	}
-	stage("Build Docker Image"){
+	stage("Build Docker Image"){     // make sure docker is installed on the vm
 		timestamps {
 			ws {
 				sh '''
-					docker build -t artemis:${Version} .
+					docker build -t artemis:'${Version}' .
 				'''
 			}
 		}
@@ -63,7 +63,7 @@ node {
 			timestamps {
 				ws {
 					sh '''
-						docker tag artemis:${Version} 771745960392.dkr.ecr.us-east-1.amazonaws.com/artemis:${Version}
+						docker tag artemis:'${Version}' 771745960392.dkr.ecr.us-east-1.amazonaws.com/artemis:'${Version}'
 					'''
 					}
 				}
@@ -72,7 +72,7 @@ node {
 		timestamps {
 			ws {
 				sh '''
-					docker push 771745960392.dkr.ecr.us-east-1.amazonaws.com/artemis:${Version}
+					docker push 771745960392.dkr.ecr.us-east-1.amazonaws.com/artemis:'${Version}'
 				'''
 			}
 		}
