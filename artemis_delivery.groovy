@@ -63,7 +63,7 @@ node {
 					}
 				}
 			}
-	stage("Push Image"){  // into DockerHub, ECR, Jenkins and Artifactory, etc images folders/repositoreis
+	stage("Push Image"){  // into DockerHub, ECR, Jenkins and Artifactory, an image folder/repository
 		timestamps {
 			ws {
 				sh '''
