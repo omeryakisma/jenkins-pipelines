@@ -54,7 +54,7 @@ node {
 		timestamps {
 			ws {
 				sh '''
-                                        echo 1 > /proc/sys/vm/drop_caches
+                                        sudo echo 1 > /proc/sys/vm/drop_caches
 					docker build -t artemis:${Version} .
 				'''
 			}
