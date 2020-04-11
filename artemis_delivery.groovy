@@ -40,7 +40,7 @@ node {
 		timestamps {
 			ws{
 				sh '''
-					ssh centos@${ENVIR} aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 771745960392.dkr.ecr.us-east-1.amazonaws.com/artemis
+					aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 771745960392.dkr.ecr.us-east-1.amazonaws.com/artemis
 				'''
 			}
 		}
@@ -49,7 +49,7 @@ node {
 		timestamps {                 // echo 1 > /proc/sys/vm/drop_caches
 			ws {
 				sh '''   
-			   		ssh centos@${ENVIR} docker build -t artemis:${Version} .
+			   		ssh centos@$jenkins_master.yakisma.com docker build -t artemis:${Version} .
 				'''
 			}
 		}
@@ -58,7 +58,7 @@ node {
 			timestamps {
 				ws {
 					sh '''
-						ssh centos@${ENVIR} docker tag artemis:${Version} 771745960392.dkr.ecr.us-east-1.amazonaws.com/artemis:${Version}
+						docker tag artemis:${Version} 771745960392.dkr.ecr.us-east-1.amazonaws.com/artemis:${Version}
 					'''
 					}
 				}
@@ -67,7 +67,7 @@ node {
 		timestamps {
 			ws {
 				sh '''
-					ssh centos@${ENVIR} docker push 771745960392.dkr.ecr.us-east-1.amazonaws.com/artemis:${Version}
+					docker push 771745960392.dkr.ecr.us-east-1.amazonaws.com/artemis:${Version}
 				'''
 			}
 		}
