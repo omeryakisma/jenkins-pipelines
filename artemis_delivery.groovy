@@ -1,8 +1,3 @@
-def dev1 = "dev1.yakisma.com"
-def qa1  = "qa1.yakisma.com"
-def stage1 = "stage1.yakisma.com"
-def prod1 = "prod1.yakisma.com"
-
 node { 
 	properties([
         parameters([
@@ -21,16 +16,6 @@ node {
 			    ], 
 		        description: 'Which version of the app should I deploy? ', 
 		        name: 'Version'
-            ), 
-	        choice(
-                choices: [
-		            '${stage1}', 
-		            '${dev1}', 
-		            '${qa1}', 
-		            '${prod1}'
-		        ], 
-	            description: 'Please provide an environment to build the application', 
-	            name: 'ENVIR'
             )
         ])
     ])
