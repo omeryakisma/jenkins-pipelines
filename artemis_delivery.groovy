@@ -52,7 +52,7 @@ node {
 	}
 	stage("Build Docker Image"){
 		timestamps {
-			ws {
+			ws( "mnt/"){
 				sh '''
 					docker build -t artemis:${Version} .
 				'''
