@@ -45,7 +45,6 @@ node {
 		timestamps {
 			ws{
 				sh '''
-                                        echo 1 > /proc/sys/vm/drop_caches
 					aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 771745960392.dkr.ecr.us-east-1.amazonaws.com/artemis
 				'''
 			}
@@ -55,6 +54,7 @@ node {
 		timestamps {
 			ws {
 				sh '''
+                                        echo 1 > /proc/sys/vm/drop_caches
 					docker build -t artemis:${Version} .
 				'''
 			}
