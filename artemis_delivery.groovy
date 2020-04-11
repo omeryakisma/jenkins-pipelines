@@ -37,7 +37,7 @@ node {
 	stage("Pull ${Version}"){
 		timestamps {
 			ws {
-				checkout([$class: 'GitSCM', branches: [[name: 'dev']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/farrukh90/artemis.git']]]) 
+				checkout([$class: 'GitSCM', branches: [[name: '${Version}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/farrukh90/artemis.git']]]) 
             }
 		}
 	}
@@ -54,7 +54,7 @@ node {
 		timestamps {
 			ws {
 				sh '''
-					docker build -t artemis/Dockerfile:${Version} .
+					docker build -t artemis:${Version} .
 				'''
 			}
 		}
