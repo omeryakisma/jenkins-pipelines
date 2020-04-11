@@ -1,3 +1,8 @@
+def dev1 = "dev1.yakisma.com"
+def qa1  = "qa1.yakisma.com"
+def stage1 = "stage1.yakisma.com"
+def prod1 = "prod1.yakisma.com"
+
 node { 
     properties([
         parameters([
@@ -7,18 +12,29 @@ node {
                     'version/0.2',  
                     'version/0.3',  
                     'version/0.4',  
-                    'version/0.5'],  
+                    'version/0.5',
+                    'version/0.6',
+                    'version/0.7',
+                    'version/0.8',
+                    'version/0.9',
+                    'version/1.0'
+                ],  
                 description: 'Which version of the app should I deploy? ',  
-                name: 'Version'),  
+                name: 'Version'
+            ),  
             choice(
                 choices:[ 
-                    'dev1.yakisma.com',  
-                    'qa1.yakisma.com',  
-                    'stage1.yakisma.com',  
-                    'prod1.yakisma.com'],  
+		            '${stage1}', 
+		            '${dev1}', 
+		            '${qa1}', 
+		            '${prod1}'
+                ],  
                 description: 'Please provide an environment to build the application',  
-                name: 'ENVIR')])]) 
-    stage("Stage1"){ 
+                name: 'ENVIR'
+            )
+        ])
+    ]) 
+    stage("Pull ${Version}"){ 
         timestamps { 
             ws { 
                 checkout([$class: 'GitSCM', branches: [[name: '${Version}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/farrukh90/artemis.git']]]) 
