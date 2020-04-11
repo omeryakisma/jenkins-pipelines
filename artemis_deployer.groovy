@@ -1,8 +1,3 @@
-def dev1 = "dev1.yakisma.com"
-def qa1  = "qa1.yakisma.com"
-def stage1 = "stage1.yakisma.com"
-def prod1 = "prod1.yakisma.com"
-
 node { 
     properties([
         parameters([
@@ -24,22 +19,22 @@ node {
             ),  
             choice(
                 choices:[ 
-		            '${stage1}', 
-		            '${dev1}', 
-		            '${qa1}', 
-		            '${prod1}'
+                    'dev1.yakisma.com',  
+                    'qa1.yakisma.com',  
+                    'stage1.yakisma.com',  
+                    'prod1.yakisma.com'
                 ],  
                 description: 'Please provide an environment to build the application',  
                 name: 'ENVIR'
             )
         ])
     ]) 
-    stage("Pull ${Version}"){ 
-        timestamps { 
-            ws { 
-                checkout([$class: 'GitSCM', branches: [[name: '${Version}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/farrukh90/artemis.git']]]) 
-            } 
-        } 
+   stage("Pull ${ENVIR} ${Version}"){ 
+       timestamps { 
+           ws { 
+               checkout([$class: 'GitSCM', branches: [[name: '${Version}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/farrukh90/artemis.git']]]) 
+           } 
+       } 
     } 
     stage("Install Prerequisites"){ 
         timestamps { 
