@@ -63,7 +63,7 @@ node {
 			timestamps {
 				ws {
 					sh '''
-						docker tag artemis:${Version} 713287746880.dkr.ecr.us-east-1.amazonaws.com/artemis:${Version}
+						docker tag artemis:${Version} 771745960392.dkr.ecr.us-east-1.amazonaws.com/artemis:${Version}
 					'''
 					}
 				}
@@ -72,89 +72,9 @@ node {
 		timestamps {
 			ws {
 				sh '''
-					docker push 713287746880.dkr.ecr.us-east-1.amazonaws.com/artemis:${Version}
+					docker push 771745960392.dkr.ecr.us-east-1.amazonaws.com/artemis:${Version}
 				'''
 			}
 		}
 	}
-	stage("Send slack notifications"){
-		timestamps {
-			ws {
-				echo "Slack"
-				//slackSend color: '#BADA55', message: 'Hello, World!'
-			}
-		}
-	}
-	stage("Authenticate"){
-		timestamps {
-			ws {
-		        sh '''
-					ssh centos@${ENVIR} $(aws ecr get-login --no-include-email --region us-east-1)
-				'''
-			}
-		}
-	}
-	stage("Clean Up"){
-		timestamps {
-			ws {
-				try {
-					sh '''
-						#!/bin/bash
-						IMAGES=$(ssh centos@${ENVIR} docker ps -aq) 
-						for i in \$IMAGES; do
-						ssh centos@${ENVIR} docker stop \$i
-						ssh centos@${ENVIR} docker rm \$i
-						done 
-					'''
-				} 
-                catch(e) {
-					println("Script failed with error: ${e}")
-				}
-			}
-		}
-	}
-	stage("Run Container"){
-		timestamps {
-			ws {
-				sh '''
-					ssh centos@${ENVIR} docker run -dti -p 5001:5000 713287746880.dkr.ecr.us-east-1.amazonaws.com/artemis:${Version}
-				'''
-			}
-		}
-	}
-    stage("Build Docker Image"){ 
-        timestamps { 
-            ws { 
-                sh ''' 
-                    docker build -t artemis:${Version} . 
-                ''' 
-            } 
-        }            
-    } 
-    stage("Tag Image"){
-        timestamps { 
-            ws { 
-                sh ''' 
-                    docker tag artemis:${Version} 771745960392.dkr.ecr.us-east-1.amazonaws.com/artemis:${Version} 
-                ''' 
-            } 
-        } 
-    } 
-    stage("Push Image"){ 
-        timestamps { 
-            ws { 
-                sh ''' 
-                    docker push 771745960392.dkr.ecr.us-east-1.amazonaws.com/artemis:${Version} 
-                ''' 
-            } 
-        } 
-    } 
-    stage("Send slack notifications"){ 
-        timestamps { 
-            ws { 
-                echo "Slack" 
-                //slackSend color: '#BADA55', message: 'Hello, World!' 
-            }          
-        } 
-    }
 }
