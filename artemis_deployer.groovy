@@ -60,7 +60,7 @@ node {
         timestamps { 
             ws { 
                 sh ''' 
-                    ssh centos@${ENVIR} nohup python /tmp/artemis.py 
+                    ssh centos@${ENVIR} nohup python /tmp/artemis.py &
                 ''' 
             } 
         } 
