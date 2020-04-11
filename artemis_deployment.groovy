@@ -24,9 +24,9 @@ node {
             ), 
 	        choice(
                 choices: [
-		            '${stage1}', 
-		            '${dev1}', 
-		            '${qa1}', 
+		            '${dev1}',
+					'${qa1}',
+					'${stage1}', 
 		            '${prod1}'
 		        ], 
 	            description: 'Please provide an environment to build the application', 
@@ -37,7 +37,7 @@ node {
 	stage("Pull ${Version} For ${ENVIR}"){
 		timestamps {
 			ws {
-				checkout([$class: 'GitSCM', branches: [[name: '${Version}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/farrukh90/artemis.git']]]) 
+				checkout([$class: 'GitSCM', branches: [[name: '${Version}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/farrukh90/artemis.git']]])  
             }
 		}
 	}
